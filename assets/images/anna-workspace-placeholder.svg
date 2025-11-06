@@ -1,0 +1,7 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#f8fafc"/>
+  <rect x="50" y="100" width="300" height="200" rx="10" fill="#e2e8f0"/>
+  <rect x="80" y="130" width="240" height="140" rx="5" fill="#f1f5f9"/>
+  <circle cx="320" cy="160" r="20" fill="#ddd6fe"/>
+  <text x="200" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="#64748b">Anna - Workspace Setup</text>
+</svg>

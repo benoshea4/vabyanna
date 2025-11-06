@@ -1,0 +1,5 @@
+<svg width="200" height="100" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="100" fill="#ffffff" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="100" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#7c3aed">St George's</text>
+  <text x="100" y="60" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#64748b">International School</text>
+</svg>

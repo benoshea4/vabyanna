@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Test - VA by Anna</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        .test-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: 2px solid #333;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 250px;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .pass { color: green; }
+        .fail { color: red; }
+        .test-item { margin: 0.25rem 0; }
+    </style>
+</head>
+<body data-page="test">
+    <div class="test-status">
+        <h3>New Color Scheme Test</h3>
+        <div class="test-item" id="css-test">CSS: Testing...</div>
+        <div class="test-item" id="images-test">Images: Testing...</div>
+        <div class="test-item" id="layout-test">Layout: Testing...</div>
+        <div class="test-item" id="js-test">JavaScript: Testing...</div>
+    </div>
+
+    <!-- Header Test -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">VA by Anna</a>
+                </div>
+                <nav class="nav-desktop">
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link">Test Link</a></li>
+                    </ul>
+                </nav>
+                <a href="#" class="cta-button">Test Button</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Test -->
+    <main class="main">
+        <div class="container">
+            <h1 class="page-title">New Color Scheme: #178f79</h1>
+            
+            <!-- Hero Section Test -->
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h2 class="hero-title">Test Hero Section</h2>
+                        <p class="hero-subtitle">Testing layout and styling</p>
+                    </div>
+                    <div class="hero-image">
+                        <img src="assets/images/anna-professional.jpg" 
+                             onerror="this.src='assets/images/anna-professional-placeholder.svg'" 
+                             alt="Test image" class="hero-img">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Grid Test -->
+            <section class="services-preview">
+                <div class="container">
+                    <h2 class="section-title">Test Services Grid</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <h3 class="service-title">Test Service 1</h3>
+                            <p class="service-description">Testing service card layout</p>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-title">Test Service 2</h3>
+                            <p class="service-description">Testing responsive grid</p>
+                        </div>
+                        <div class="service-card">
+                            <h3 class="service-title">Test Service 3</h3>
+                            <p class="service-description">Testing card styling</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Client Logos Test -->
+            <section class="clients">
+                <div class="container">
+                    <h2 class="section-title">Test Client Logos</h2>
+                    <div class="clients-grid">
+                        <img src="assets/images/dolphin-rfc-logo.jpg" 
+                             onerror="this.src='assets/images/dolphin-rfc-placeholder.svg'" 
+                             alt="Test logo 1" class="client-logo">
+                        <img src="assets/images/tricare-logo.jpg" 
+                             onerror="this.src='assets/images/tricare-placeholder.svg'" 
+                             alt="Test logo 2" class="client-logo">
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Test -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Test Footer</h3>
+                    <p>Testing footer layout</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test CSS
+            const testElement = document.createElement('div');
+            testElement.className = 'container hero-title service-card';
+            document.body.appendChild(testElement);
+            const styles = window.getComputedStyle(testElement);
+            const cssWorking = styles.maxWidth !== 'none' || styles.fontSize !== '16px';
+            document.getElementById('css-test').innerHTML = cssWorking ? 
+                '<span class="pass">CSS: ✓ Working</span>' : 
+                '<span class="fail">CSS: ✗ Failed</span>';
+            document.body.removeChild(testElement);
+
+            // Test Images
+            let imagesLoaded = 0;
+            let totalImages = 0;
+            const images = document.querySelectorAll('img');
+            totalImages = images.length;
+            
+            images.forEach(img => {
+                if (img.complete) {
+                    imagesLoaded++;
+                } else {
+                    img.onload = () => imagesLoaded++;
+                    img.onerror = () => imagesLoaded++;
+                }
+            });
+
+            setTimeout(() => {
+                document.getElementById('images-test').innerHTML = imagesLoaded === totalImages ? 
+                    '<span class="pass">Images: ✓ Loaded</span>' : 
+                    `<span class="fail">Images: ${imagesLoaded}/${totalImages}</span>`;
+            }, 1000);
+
+            // Test Layout
+            const hero = document.querySelector('.hero');
+            const servicesGrid = document.querySelector('.services-grid');
+            const layoutWorking = hero && servicesGrid && 
+                                 window.getComputedStyle(hero).display !== 'none' &&
+                                 window.getComputedStyle(servicesGrid).display !== 'none';
+            
+            document.getElementById('layout-test').innerHTML = layoutWorking ? 
+                '<span class="pass">Layout: ✓ Working</span>' : 
+                '<span class="fail">Layout: ✗ Failed</span>';
+
+            // Test JavaScript
+            const jsWorking = typeof componentLoader !== 'undefined';
+            document.getElementById('js-test').innerHTML = jsWorking ? 
+                '<span class="pass">JavaScript: ✓ Working</span>' : 
+                '<span class="fail">JavaScript: ✗ Failed</span>';
+        });
+    </script>
+</body>
+</html>
