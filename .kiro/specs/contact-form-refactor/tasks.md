@@ -22,7 +22,7 @@ x# Implementation Plan
   - Add proper error handling for Resend API failures
   - _Requirements: 2.1, 2.2, 2.3, 2.4_
 
-- [-] 4. Simplify contact links in HTML
+- [x] 4. Simplify contact links in HTML
   - Update WhatsApp link in contact.html to use wa.me format
   - Verify email links use mailto: format
   - Add or update phone links to use tel: format
