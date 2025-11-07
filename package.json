@@ -1,30 +1,18 @@
 {
   "name": "vabyanna-website",
   "version": "1.0.0",
-  "description": "VA by Anna - Professional virtual assistant website with Cloudflare Workers contact form",
-  "main": "_worker.js",
+  "description": "VA by Anna - Professional virtual assistant website with Cloudflare Pages contact form",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "deploy:staging": "wrangler deploy --env staging",
-    "test": "node test-worker.js",
-    "lint": "echo 'No linting configured - using browser dev tools for validation'",
     "preview": "python3 -m http.server 8000 || python -m SimpleHTTPServer 8000"
   },
   "keywords": [
     "virtual-assistant",
-    "cloudflare-workers",
+    "cloudflare-pages",
     "contact-form",
     "static-website"
   ],
   "author": "Anna Mawhinney",
   "license": "MIT",
-  "devDependencies": {
-    "wrangler": "^3.0.0"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/vabyanna/vabyanna-website.git"

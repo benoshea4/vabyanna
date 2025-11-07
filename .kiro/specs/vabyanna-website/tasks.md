@@ -12,7 +12,7 @@
 ✅ No repeated code blocks across files
 ✅ Components are modular and reusable
 ✅ Code is minimal and focused on core functionality
-✅ Forms, workers, and complex logic have clear comments
+✅ Forms, functions, and complex logic have clear comments
 ✅ Consistent naming conventions throughout
 
 ---
@@ -145,16 +145,16 @@
     - **Code Quality Check**: ✅ All CSS classes defined, no unused code, optimal performance
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-- [x] 8. Develop Cloudflare Worker for form processing
-  - [x] 8.1 Create Cloudflare Worker script
+- [x] 8. Develop Cloudflare Pages Function for form processing
+  - [x] 8.1 Create Cloudflare Pages Function script
     - Implement modular form data processing with reusable validation functions
     - Add server-side validation and sanitization using utility functions
     - Configure email sending functionality with error handling and logging
-    - **Comments**: Worker handles form submissions, validates data, sends emails via API
+    - **Comments**: Function handles form submissions, validates data, sends emails via API
     - **Code Quality Check**: ✅ Validation functions are modular and reusable, make changes if needed identified
     - _Requirements: 5.5, 6.2_
 
-  - [x] 8.2 Integrate worker with contact form
+  - [x] 8.2 Integrate function with contact form
     - Connect form submission using existing JavaScript utility functions
     - Handle success and error responses with consistent user feedback patterns
     - Implement spam protection and rate limiting using reusable middleware functions
@@ -163,11 +163,11 @@
     - _Requirements: 6.2, 6.3_
 
   - [x] 8.3 Code quality review and optimization
-    - Review Cloudflare Worker code for security vulnerabilities and performance issues
+    - Review Cloudflare Pages Function code for security vulnerabilities and performance issues
     - Ensure error handling is comprehensive and logging is properly implemented
-    - Verify worker functions are modular and can be reused for other form endpoints
-    - Optimize worker deployment size and eliminate any unused dependencies
-    - **Code Quality Check**: ✅ Worker code is secure, performant, and reusable, scan new code for duplication and fix if needed
+    - Verify functions are modular and can be reused for other form endpoints
+    - Optimize function deployment size and eliminate any unused dependencies
+    - **Code Quality Check**: ✅ Function code is secure, performant, and reusable, scan new code for duplication and fix if needed
     - _Requirements: 5.5, 6.2, 6.3_
 
 - [x] 9. Add JavaScript functionality and interactions

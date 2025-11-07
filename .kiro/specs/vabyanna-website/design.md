@@ -25,13 +25,15 @@ vabyanna.com/
 │   └── images/
 │       ├── anna-profile.jpg
 │       └── client-logos/
-└── _worker.js (Cloudflare Worker for form processing)
+└── functions/
+    └── api/
+        └── contact.js (Cloudflare Pages Function for form processing)
 ```
 
 ### Technology Stack
 - **Frontend**: HTML5, CSS3 (Flexbox/Grid), Vanilla JavaScript
 - **Hosting**: Cloudflare Pages (static hosting)
-- **Forms**: Cloudflare Workers for server-side processing
+- **Forms**: Cloudflare Pages Functions for server-side processing
 - **Styling**: Custom CSS with CSS custom properties for theming
 - **Responsive**: Mobile-first responsive design
 
@@ -132,7 +134,7 @@ vabyanna.com/
 
 ### Form Validation
 - **Client-side**: Real-time validation for email format, required fields
-- **Server-side**: Cloudflare Worker validation and sanitization
+- **Server-side**: Cloudflare Pages Function validation and sanitization
 - **Error Messages**: Clear, user-friendly error messaging
 - **Success States**: Confirmation messages and visual feedback
 
@@ -162,7 +164,7 @@ vabyanna.com/
 - **CSS/JS Minification**: Production build optimization
 
 ### Form Testing
-- **Cloudflare Worker Integration**: End-to-end form submission testing
+- **Cloudflare Pages Function Integration**: End-to-end form submission testing
 - **Email Delivery**: Verification of form-to-email functionality
 - **Spam Protection**: Basic validation and rate limiting
 - **Error Scenarios**: Network failures, invalid inputs
@@ -207,7 +209,7 @@ vabyanna.com/
 - **Redirects**: Handle www to non-www redirects
 - **Headers**: Security headers and caching policies
 
-### Cloudflare Worker Integration
+### Cloudflare Pages Function Integration
 - **Form Endpoint**: POST /api/contact
 - **Email Service**: Integration with email service (Resend, SendGrid, or similar)
 - **Rate Limiting**: Prevent spam submissions

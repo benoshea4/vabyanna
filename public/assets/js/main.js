@@ -1461,7 +1461,7 @@ function initializeContactForm() {
             sanitizedData.timestamp = new Date().toISOString();
             sanitizedData.source = 'website_contact_form';
 
-            // Submit form to Cloudflare Worker
+            // Submit form to Cloudflare Pages Function
             const response = await submitContactForm(sanitizedData);
             
             if (response.success) {
@@ -1493,7 +1493,7 @@ function initializeContactForm() {
                 }
                 
                 // Log performance for debugging (development only)
-                if (process.env.NODE_ENV === 'development') {
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                     console.log(`Form submission completed in ${submissionTime.toFixed(2)}ms`);
                 }
             } else {
@@ -1532,7 +1532,7 @@ function initializeContactForm() {
 }
 
 /**
- * Submit contact form data to Cloudflare Worker
+ * Submit contact form data to Cloudflare Pages Function
  * Handles form POST, manages loading states, shows user feedback
  * @param {Object} formData - Sanitized form data
  * @returns {Promise} - Promise resolving to response object

@@ -90,7 +90,7 @@ Content-Type: application/json
 - `RESEND_API_KEY`: API key for Resend service (stored in Cloudflare Pages settings)
 
 **Dependencies:**
-- Resend SDK (via npm or direct API calls)
+- Resend API (via direct API calls)
 
 ### 2. Contact Form HTML
 

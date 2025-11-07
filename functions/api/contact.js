@@ -1,6 +1,9 @@
 /**
  * Cloudflare Pages Function for Contact Form Submission
  * Handles form validation, sanitization, and email delivery via Resend API
+ * 
+ * This function is automatically deployed as part of Cloudflare Pages
+ * and handles POST requests to /api/contact
  */
 
 /**

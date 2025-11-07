@@ -2,12 +2,12 @@
 
 ## Introduction
 
-A professional static website for vabyanna.com showcasing Anna's virtual assistant services. The website will be hosted on Cloudflare Pages with integrated contact forms using Cloudflare Workers, featuring a clean, minimal design that effectively communicates Anna's expertise and services to potential clients.
+A professional static website for vabyanna.com showcasing Anna's virtual assistant services. The website will be hosted on Cloudflare Pages with integrated contact forms using Cloudflare Pages Functions, featuring a clean, minimal design that effectively communicates Anna's expertise and services to potential clients.
 
 ## Glossary
 
 - **Website**: The vabyanna.com static website
-- **Contact_Form**: Web form that collects user inquiries and sends them via Cloudflare Workers
+- **Contact_Form**: Web form that collects user inquiries and sends them via Cloudflare Pages Functions
 - **Navigation_System**: The website's menu and page routing structure
 - **Service_Pages**: Individual pages describing Anna's virtual assistant offerings
 - **Testimonial_Section**: Client feedback display component
@@ -75,7 +75,7 @@ A professional static website for vabyanna.com showcasing Anna's virtual assista
 2. THE Website SHALL display Anna's email as anna@vabyanna.com
 3. THE Website SHALL include a link to Anna's LinkedIn profile (https://www.linkedin.com/in/anna-mawhinney-bb2438156/)
 4. THE Website SHALL provide WhatsApp contact option
-5. WHEN a user submits the Contact_Form, THE Website SHALL process the form using Cloudflare Workers
+5. WHEN a user submits the Contact_Form, THE Website SHALL process the form using Cloudflare Pages Functions
 
 ### Requirement 6
 
@@ -84,7 +84,7 @@ A professional static website for vabyanna.com showcasing Anna's virtual assista
 #### Acceptance Criteria
 
 1. THE Website SHALL be built using only HTML, CSS, and minimal JavaScript
-2. THE Website SHALL implement contact form processing using Cloudflare Workers following the official tutorial
+2. THE Website SHALL implement contact form processing using Cloudflare Pages Functions
 3. THE Website SHALL be optimized for static hosting without server-side dependencies
 4. THE Website SHALL maintain fast loading times with minimal external dependencies
 5. THE Website SHALL be responsive and work on mobile and desktop devices
