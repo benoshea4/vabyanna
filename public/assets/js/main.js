@@ -1993,3 +1993,36 @@ if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
         }
     };
 }
+
+
+// ==========================================================================
+// CONTACT FORM INITIALIZATION
+// ==========================================================================
+
+/**
+ * Initialize contact form with validation and touch state handling
+ */
+function initializeContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+
+    // Add touch state handling to all form inputs
+    const formInputs = contactForm.querySelectorAll('.form-input');
+    
+    formInputs.forEach(input => {
+        // Mark field as touched when user leaves it (blur event)
+        input.addEventListener('blur', function() {
+            this.classList.add('touched');
+        });
+
+        // Also mark as touched on first input
+        input.addEventListener('input', function() {
+            if (!this.classList.contains('touched')) {
+                this.classList.add('touched');
+            }
+        }, { once: true });
+    });
+
+    // Existing form submission handling would go here
+    // (This will be added in a future task)
+}
