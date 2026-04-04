@@ -142,9 +142,9 @@ async function loadComponent(elementId, componentPath) {
 
 // Update copyright year dynamically
 function updateCopyrightYear() {
-    const year = new Date().getFullYear();
-    document.querySelectorAll('.copyright').forEach(el => {
-        el.innerHTML = el.innerHTML.replace(/\b\d{4}\b/, year);
+    const year = new Date().getFullYear().toString();
+    document.querySelectorAll('.copyright, .footer-copyright').forEach(el => {
+        el.textContent = el.textContent.replace(/\d{4}/, year);
     });
 }
 
