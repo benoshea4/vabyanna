@@ -60,7 +60,6 @@ class ComponentLoader {
     async loadComponent(elementId, componentPath, useCache = true) {
         const element = document.getElementById(elementId);
         if (!element) {
-            console.warn(`Element with ID "${elementId}" not found`);
             return;
         }
 
@@ -126,7 +125,6 @@ class ComponentLoader {
             this.fetchComponent(path).then(html => {
                 this.cache.set(path, html);
             }).catch(error => {
-                console.warn(`Failed to preload component ${path}:`, error);
             })
         );
         
@@ -1876,9 +1874,6 @@ class PerformanceMonitor {
             const lastEntry = entries[entries.length - 1];
             const lcp = lastEntry.startTime;
             
-            if (lcp > 2500) {
-                console.warn(`LCP is ${Math.round(lcp)}ms (should be < 2500ms)`);
-            }
         }).observe({ entryTypes: ['largest-contentful-paint'] });
 
         // First Input Delay (FID)
@@ -1886,9 +1881,6 @@ class PerformanceMonitor {
             const entries = entryList.getEntries();
             entries.forEach(entry => {
                 const fid = entry.processingStart - entry.startTime;
-                if (fid > 100) {
-                    console.warn(`FID is ${Math.round(fid)}ms (should be < 100ms)`);
-                }
             });
         }).observe({ entryTypes: ['first-input'] });
 
@@ -1902,9 +1894,6 @@ class PerformanceMonitor {
                 }
             });
             
-            if (clsValue > 0.1) {
-                console.warn(`CLS is ${clsValue.toFixed(3)} (should be < 0.1)`);
-            }
         }).observe({ entryTypes: ['layout-shift'] });
     }
 
@@ -1912,23 +1901,6 @@ class PerformanceMonitor {
      * Monitor resource loading performance
      */
     static monitorResourceLoading() {
-        window.addEventListener('load', () => {
-            const navigation = performance.getEntriesByType('navigation')[0];
-            const resources = performance.getEntriesByType('resource');
-            
-            // Log slow resources
-            resources.forEach(resource => {
-                if (resource.duration > 1000) {
-                    console.warn(`Slow resource: ${resource.name} took ${Math.round(resource.duration)}ms`);
-                }
-            });
-            
-            // Log overall page load time
-            const loadTime = navigation.loadEventEnd - navigation.fetchStart;
-            if (loadTime > 3000) {
-                console.warn(`Page load time is ${Math.round(loadTime)}ms (should be < 3000ms)`);
-            }
-        });
     }
 
     /**

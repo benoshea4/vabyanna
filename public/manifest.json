@@ -1,0 +1,16 @@
+{
+  "name": "VA by Anna",
+  "short_name": "VA by Anna",
+  "description": "Professional virtual assistant services in Cork, Ireland",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#2c5f8a",
+  "icons": [
+    {
+      "src": "/assets/images/vabyanna-logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
