@@ -140,6 +140,14 @@ async function loadComponent(elementId, componentPath) {
     return componentLoader.loadComponent(elementId, componentPath);
 }
 
+// Update copyright year dynamically
+function updateCopyrightYear() {
+    const year = new Date().getFullYear();
+    document.querySelectorAll('.copyright').forEach(el => {
+        el.innerHTML = el.innerHTML.replace(/\b\d{4}\b/, year);
+    });
+}
+
 // Set active navigation state based on current page
 function setActiveNavigation() {
     const currentPage = document.body.getAttribute('data-page');
@@ -521,7 +529,8 @@ async function initializeWebsite() {
             setActiveNavigation();
             initializeMobileMenu();
             initializeContactForm();
-            
+            updateCopyrightYear();
+
             // Announce page ready to screen readers
             AccessibilityEnhancer.announceToScreenReader('Page loaded and ready for interaction');
         });
@@ -534,6 +543,7 @@ async function initializeWebsite() {
             setActiveNavigation();
             initializeMobileMenu();
             initializeContactForm();
+            updateCopyrightYear();
             
             // Initialize basic SEO as fallback
             SEOOptimizer.initializePageSEO();
