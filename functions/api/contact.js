@@ -112,7 +112,7 @@ export async function onRequestPost({ request, env }) {
         Authorization: `Bearer ${env.RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "submissions@vabyanna.com",
+        from: "submissions@mail.vabyanna.com",
         to: "anna@vabyanna.com",
         subject: `New Contact Form Submission from ${output.firstName} ${output.lastName}`,
         html,
