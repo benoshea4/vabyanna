@@ -28,7 +28,7 @@
                 </nav>
                 
                 <!-- CTA Button -->
-                <a href="https://calendly.com/anna-vabyanna/15minconsultation" class="cta-button" target="_blank" rel="noopener" aria-label="Schedule a consultation with Anna">
+                <a href="https://calendly.com/anna-vabyanna/15minconsultation" class="cta-button" target="_blank" rel="noopener noreferrer" aria-label="Schedule a consultation with Anna">
                     Meet with Anna
                 </a>
                 
@@ -99,6 +99,12 @@
                             <div id="message-error" class="form-error" style="display: none;"></div>
                         </div>
                         
+                        <!-- Honeypot: hidden from humans, bots fill it in -->
+                        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                            <label for="_gotcha">Leave this empty</label>
+                            <input type="text" id="_gotcha" name="_gotcha" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg" id="submit-button">
                                 <span class="button-text">Send Message</span>
@@ -150,9 +156,9 @@
                     <article class="service-card md:col-span-2 lg:col-span-1" role="listitem">
                         <h3 class="service-title">Connect</h3>
                         <div class="flex justify-center gap-4 mt-4">
-                            <a href="https://www.linkedin.com/in/anna-mawhinney-bb2438156/" class="btn btn-outline btn-sm" target="_blank" rel="noopener" aria-label="Connect with Anna on LinkedIn">LinkedIn</a>
+                            <a href="https://www.linkedin.com/in/anna-mawhinney-bb2438156/" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Connect with Anna on LinkedIn">LinkedIn</a>
                             <!-- TODO: Add WhatsApp link when number is available -->
-                            <!-- <a href="https://wa.me/353XXXXXXXXX" class="btn btn-outline btn-sm" target="_blank" rel="noopener" aria-label="Contact Anna via WhatsApp">WhatsApp</a> -->
+                            <!-- <a href="https://wa.me/353XXXXXXXXX" class="btn btn-outline btn-sm" target="_blank" rel="noopener noreferrer" aria-label="Contact Anna via WhatsApp">WhatsApp</a> -->
                         </div>
                     </article>
                 </div>
@@ -162,7 +168,7 @@
             <section class="cta-section">
                 <h2 class="section-title">Ready to get started?</h2>
                 <p>Book a free 15-minute consultation to discuss your business needs and how I can help you achieve your goals.</p>
-                <a href="https://calendly.com/anna-vabyanna/15minconsultation" class="cta-button" target="_blank" rel="noopener">Schedule Free Consultation</a>
+                <a href="https://calendly.com/anna-vabyanna/15minconsultation" class="cta-button" target="_blank" rel="noopener noreferrer">Schedule Free Consultation</a>
             </section>
         </div>
     </main>
@@ -186,7 +192,7 @@
 
                 <div class="footer-section">
                     <a href="https://www.linkedin.com/in/anna-mawhinney-bb2438156/" class="footer-linkedin"
-                        target="_blank" rel="noopener" aria-label="Connect with Anna on LinkedIn">
+                        target="_blank" rel="noopener noreferrer" aria-label="Connect with Anna on LinkedIn">
                         LinkedIn
                     </a>
                 </div>
