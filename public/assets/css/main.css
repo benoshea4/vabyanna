@@ -1596,7 +1596,7 @@ a:focus {
 
 .hero-subtitle {
     font-size: var(--font-size-xl);
-    color: var(--color-gray-700);
+    color: #ffffff;
     margin-bottom: var(--space-8);
     line-height: var(--line-height-relaxed);
 }
@@ -1644,12 +1644,12 @@ a:focus {
 .service-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-gray-900);
+    color: #ffffff;
     margin-bottom: var(--space-4);
 }
 
 .service-description {
-    color: var(--color-gray-700);
+    color: #ffffff;
     line-height: var(--line-height-relaxed);
 }
 
@@ -3101,6 +3101,7 @@ input:-webkit-autofill:focus {
     .btn,
     .cta-button {
         -moz-appearance: none;
+        appearance: none;
     }
 }
 
@@ -3108,13 +3109,15 @@ input:-webkit-autofill:focus {
 @supports (-webkit-appearance: none) {
     .form-input {
         -webkit-appearance: none;
+        appearance: none;
     }
-    
+
     /* Fix Safari button styling */
     .btn,
     .cta-button,
     button {
         -webkit-appearance: none;
+        appearance: none;
         border-radius: var(--radius-lg);
     }
     
@@ -4212,8 +4215,9 @@ img {
 .cta-section .cta-button {
     font-size: var(--font-size-lg);
     padding: var(--space-4) var(--space-8);
-}/
-* ==========================================================================
+}
+
+/* ==========================================================================
    ENHANCED SPACING AND WHITESPACE
    ========================================================================== */
 
@@ -4253,7 +4257,7 @@ section {
 
 .hero-subtitle {
     font-size: var(--font-size-xl);
-    color: var(--color-gray-600);
+    color: #ffffff;
     margin-bottom: var(--space-10);
     line-height: var(--line-height-relaxed);
 }
@@ -4280,10 +4284,12 @@ section {
     font-weight: var(--font-weight-semibold);
     color: var(--color-gray-900);
     margin-bottom: var(--space-4);
+    text-decoration: underline;
+
 }
 
 .service-description {
-    color: var(--color-gray-600);
+    color: var(#ffffff);
     line-height: var(--line-height-relaxed);
     font-size: var(--font-size-base);
 }
