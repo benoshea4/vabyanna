@@ -7,7 +7,7 @@
  */
 
 const ALLOWED_ORIGINS = ["https://www.vabyanna.com", "https://vabyanna.com"];
-const RATE_LIMIT_MAX = 5;       // max submissions
+const RATE_LIMIT_MAX = 3;       // max submissions
 const RATE_LIMIT_WINDOW = 3600; // per hour (seconds)
 const MAX_FIELD_LENGTH = 5000;  // chars
 
