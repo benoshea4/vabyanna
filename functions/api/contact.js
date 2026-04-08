@@ -59,7 +59,7 @@ export async function onRequestPost({ request, env }) {
     // --- Honeypot: bots fill hidden fields, humans don't ---
     if (output._gotcha && output._gotcha.trim() !== "") {
       // Silently accept to avoid tipping off bots
-      return new Response("Form submitted successfully!", { status: 200 });
+      return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "Content-Type": "application/json" } });
     }
 
     // --- Required field validation ---
@@ -124,9 +124,9 @@ export async function onRequestPost({ request, env }) {
       return errorResponse("Email send failed", 500);
     }
 
-    return new Response("Form submitted successfully!", {
+    return new Response(JSON.stringify({ ok: true }), {
       status: 200,
-      headers: { "X-Robots-Tag": "noindex" },
+      headers: { "Content-Type": "application/json", "X-Robots-Tag": "noindex" },
     });
 
   } catch (err) {

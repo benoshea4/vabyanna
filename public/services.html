@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Comprehensive virtual assistant services by Anna. Financial administration, administrative duties, and marketing management to help your business grow.">
-    <title>Services - VA by Anna</title>
+        content="Virtual assistant services in Ireland — financial administration, admin support, and marketing management. Based in Cork, serving businesses across Ireland.">
+    <title>Virtual Assistant Services Ireland | VA by Anna</title>
     <link rel="canonical" href="https://www.vabyanna.com/services.html">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.vabyanna.com/services.html">
@@ -23,7 +23,8 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preload" href="assets/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/main.css"></noscript>
 </head>
 
 <body data-page="services">
@@ -39,17 +40,12 @@
 
                 <!-- Desktop Navigation -->
                 <nav class="nav-desktop" aria-label="Main navigation" id="navigation">
-                    <ul class="nav-list" role="menubar">
-                        <li role="none"><a href="index.html" class="nav-link" data-page="home" role="menuitem">Home</a>
-                        </li>
-                        <li role="none"><a href="about.html" class="nav-link" data-page="about"
-                                role="menuitem">About</a></li>
-                        <li role="none"><a href="services.html" class="nav-link" data-page="services"
-                                role="menuitem">Services</a></li>
-                        <li role="none"><a href="pricing.html" class="nav-link" data-page="pricing"
-                                role="menuitem">Pricing</a></li>
-                        <li role="none"><a href="contact.html" class="nav-link" data-page="contact"
-                                role="menuitem">Contact</a></li>
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link" data-page="home">Home</a></li>
+                        <li><a href="about.html" class="nav-link" data-page="about">About</a></li>
+                        <li><a href="services.html" class="nav-link" data-page="services">Services</a></li>
+                        <li><a href="pricing.html" class="nav-link" data-page="pricing">Pricing</a></li>
+                        <li><a href="contact.html" class="nav-link" data-page="contact">Contact</a></li>
                     </ul>
                 </nav>
 
@@ -69,17 +65,12 @@
 
             <!-- Mobile Navigation -->
             <nav class="nav-mobile" aria-label="Mobile navigation" aria-hidden="true">
-                <ul class="nav-mobile-list" role="menu">
-                    <li role="none"><a href="index.html" class="nav-mobile-link" data-page="home"
-                            role="menuitem">Home</a></li>
-                    <li role="none"><a href="about.html" class="nav-mobile-link" data-page="about"
-                            role="menuitem">About</a></li>
-                    <li role="none"><a href="services.html" class="nav-mobile-link" data-page="services"
-                            role="menuitem">Services</a></li>
-                    <li role="none"><a href="pricing.html" class="nav-mobile-link" data-page="pricing"
-                            role="menuitem">Pricing</a></li>
-                    <li role="none"><a href="contact.html" class="nav-mobile-link" data-page="contact"
-                            role="menuitem">Contact</a></li>
+                <ul class="nav-mobile-list">
+                    <li><a href="index.html" class="nav-mobile-link" data-page="home">Home</a></li>
+                    <li><a href="about.html" class="nav-mobile-link" data-page="about">About</a></li>
+                    <li><a href="services.html" class="nav-mobile-link" data-page="services">Services</a></li>
+                    <li><a href="pricing.html" class="nav-mobile-link" data-page="pricing">Pricing</a></li>
+                    <li><a href="contact.html" class="nav-mobile-link" data-page="contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -105,7 +96,7 @@
                     <img src="assets/images/anna-at-desk.jpeg"
                         onerror="this.src='assets/images/anna-professional-placeholder.svg'"
                         alt="Anna working professionally at her desk with laptop" class="hero-img"
-                        loading="eager">
+                        width="1536" height="2048" loading="eager" fetchpriority="high">
                 </div>
             </div>
         </section>

@@ -112,7 +112,7 @@ function validateField(name, value) {
   switch (name) {
     case 'firstName':
     case 'lastName':
-      if (!v)        return 'This field is required.';
+      if (!v)           return 'This field is required.';
       if (v.length < 2) return 'Must be at least 2 characters.';
       if (!/^[\p{L}\s'\-]+$/u.test(v)) return 'Please enter a valid name.';
       return null;
@@ -125,7 +125,7 @@ function validateField(name, value) {
       if (!/^[\+\d\s\-\(\)]{7,20}$/.test(v)) return 'Please enter a valid phone number.';
       return null;
     case 'message':
-      if (!v)           return 'Message is required.';
+      if (!v)            return 'Message is required.';
       if (v.length < 10) return 'Message must be at least 10 characters.';
       return null;
     default:
@@ -165,6 +165,8 @@ function showFeedback(el, message, type) {
   el.className = `form-feedback ${type}`;
   el.textContent = message;
   el.style.display = 'block';
+  el.style.opacity = '1';
+  el.style.transform = 'none';
 }
 
 function setLoading(btn, loading) {
@@ -179,15 +181,15 @@ function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
-  const fields   = ['firstName', 'lastName', 'email', 'phone', 'message'];
-  const feedback = document.getElementById('form-feedback');
+  const fields    = ['firstName', 'lastName', 'email', 'phone', 'message'];
+  const feedback  = document.getElementById('form-feedback');
   const submitBtn = document.getElementById('submit-button');
 
   // Real-time validation on blur; clear on input
   fields.forEach(name => {
     const input = form.querySelector(`[name="${name}"]`);
     if (!input) return;
-    input.addEventListener('blur',  () => {
+    input.addEventListener('blur', () => {
       const msg = validateField(name, input.value);
       if (msg) setFieldError(form, name, msg);
       else     clearFieldError(form, name);
@@ -196,6 +198,7 @@ function initContactForm() {
   });
 
   form.addEventListener('submit', async e => {
+    // Prevent native form POST first — must be the very first thing
     e.preventDefault();
 
     if (!validateForm(form)) {
@@ -210,7 +213,6 @@ function initContactForm() {
     }
 
     setLoading(submitBtn, true);
-    showFeedback(feedback, '', 'info');
 
     try {
       const response = await fetch('/api/contact', {

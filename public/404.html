@@ -7,7 +7,8 @@
     <title>Page Not Found - VA by Anna</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="preload" href="/assets/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/main.css"></noscript>
 </head>
 <body data-page="404">
     <header class="header">
@@ -22,13 +23,13 @@
         </div>
     </header>
 
-    <main class="main-content">
+    <main class="main" id="main-content">
         <div class="container">
-            <section class="py-24 text-center">
+            <section style="padding:6rem 0;text-align:center;">
                 <h1 class="section-title" style="font-size:4rem;margin-bottom:1rem;">404</h1>
                 <h2 class="section-title">Page Not Found</h2>
-                <p class="text-gray-700 mb-8">Sorry, the page you're looking for doesn't exist or has been moved.</p>
-                <div class="flex justify-center gap-4 flex-wrap">
+                <p style="color:var(--color-gray-700);margin-bottom:2rem;">Sorry, the page you're looking for doesn't exist or has been moved.</p>
+                <div style="display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
                     <a href="/" class="btn btn-primary">Go Home</a>
                     <a href="/contact.html" class="btn btn-outline">Contact Anna</a>
                 </div>
@@ -40,7 +41,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <p class="footer-copyright">&copy; 2026 VA by Anna. All rights reserved.</p>
+                    <p class="copyright">&copy; 2026 VA by Anna. All rights reserved.</p>
                 </div>
             </div>
         </div>

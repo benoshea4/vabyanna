@@ -4,17 +4,21 @@
 /*.html
   Cache-Control: no-cache, must-revalidate
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'none'
 
 # Root (index.html served as /)
 /
   Cache-Control: no-cache, must-revalidate
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'none'
 
 # CSS and JS: cache 1 year (fingerprinted in practice)
 /assets/css/*

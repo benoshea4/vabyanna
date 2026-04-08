@@ -1,222 +1,206 @@
-# Design Document
+# Bugfix Design Document
 
 ## Overview
 
-The vabyanna.com website will be a modern, professional static website built with semantic HTML5, CSS3, and minimal JavaScript. The design emphasizes trust, professionalism, and ease of use while maintaining fast loading times and optimal performance on Cloudflare Pages. The site will feature a clean, minimal aesthetic with strategic use of white space, professional typography, and a cohesive color scheme that reflects Anna's brand as a reliable virtual assistant.
+Direct file edits to fix Lighthouse performance, accessibility, form, SEO, and security issues on vabyanna.com. No build step, no wrangler config, no settings.json. All files served directly from `public/`. Cloudflare Pages Function at `functions/api/contact.js` auto-detected by Cloudflare.
 
-## Architecture
+---
 
-### Site Structure
+## 1. CSS Cleanup (main.css)
+
+**Problem:** 4,478-line CSS file contains hundreds of unused Tailwind-style utility classes (`.m-0`, `.mt-2`, `.flex-row`, `.sm\:block`, responsive grid utilities, etc.) that are never referenced in any HTML file. Also has duplicate `* { margin:0; padding:0 }` and duplicate `html`/`body` blocks.
+
+**Fix:** Rewrite `main.css` to contain only rules actually used by the HTML. Keep:
+- `:root` variables
+- Reset (`*`, `html`, `body`)
+- Base typography (`h1-h6`, `p`, `a`)
+- Layout classes actually used in HTML: `.container`, `.grid`, `.gap-6`, `.gap-4`, `.mt-6`, `.mb-8`, `.mb-12`, `.py-8`, `.py-16`, `.px-4`, `.text-center`, `.text-lg`, `.text-primary`, `.bg-gray-50`, `.mx-auto`, `.max-w-2xl`, `.flex`, `.justify-center`, `.items-center`, `.sr-only`
+- Responsive utilities actually used: `md:grid-cols-2`, `lg:grid-cols-3`, `md:col-span-2`, `lg:col-span-1`
+- All component styles: header, nav, buttons, forms, footer, hero, services, pricing, testimonials, clients, CTA section, accessibility
+
+**Remove:** All unused spacing utilities, all unused responsive breakpoint utilities, all unused display/position/width/height utilities, duplicate reset blocks, unused notification system CSS.
+
+---
+
+## 2. Render-Blocking CSS
+
+**Problem:** `<link rel="stylesheet" href="assets/css/main.css">` blocks rendering.
+
+**Fix:** Use preload pattern on all HTML pages:
+```html
+<link rel="preload" href="assets/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="assets/css/main.css"></noscript>
 ```
-vabyanna.com/
-├── index.html (Homepage)
-├── about.html
-├── services.html
-├── pricing.html
-├── contact.html
-├── privacy-policy.html
-├── assets/
-│   ├── css/
-│   │   ├── main.css
-│   │   └── responsive.css
-│   ├── js/
-│   │   ├── main.js
-│   │   └── form-handler.js
-│   └── images/
-│       ├── anna-profile.jpg
-│       └── client-logos/
-└── functions/
-    └── api/
-        └── contact.js (Cloudflare Pages Function for form processing)
-```
 
-### Technology Stack
-- **Frontend**: HTML5, CSS3 (Flexbox/Grid), Vanilla JavaScript
-- **Hosting**: Cloudflare Pages (static hosting)
-- **Forms**: Cloudflare Pages Functions for server-side processing
-- **Styling**: Custom CSS with CSS custom properties for theming
-- **Responsive**: Mobile-first responsive design
+---
 
-## Components and Interfaces
+## 3. Form Redirect Bug
 
-### Header Component
-- **Logo/Brand**: "VA by Anna" or "vabyanna.com" branding
-- **Navigation Menu**: Horizontal navigation with hover effects
-  - Home, About, Services, Pricing, Contact
-  - Mobile: Hamburger menu with slide-out navigation
-- **CTA Button**: Prominent "Meet with Anna" button linking to Calendly
+**Problem:** Form has `action="/api/contact" method="POST"`. If any JS error occurs before `e.preventDefault()`, the browser does a native POST and renders the plain-text "Form submitted successfully!" response as a blank page.
 
-### Footer Component
-- **Contact Information**: 
-  - Location: Cork, Ireland
-  - Email: anna@vabyanna.com
-  - Social links: LinkedIn, WhatsApp
-- **Legal Links**: Privacy Policy
-- **Copyright**: "Copyright © 2025 vabyanna.com | Powered by vabyanna.com"
+**Fix (JS):** Move `e.preventDefault()` to the absolute first line of the submit handler, before any other code runs.
 
-### Homepage Sections
-1. **Hero Section**
-   - Headline: "Your New Virtual Assistant Anna"
-   - Subheading: Value proposition about helping burnt-out business owners
-   - Primary CTA: "Meet with Anna" button
-   - Supporting visual: Professional photo of Anna
+**Fix (server):** The `contact.js` function currently returns `new Response("Form submitted successfully!", { status: 200 })`. Change to return JSON `{ ok: true }` so the fetch handler can reliably detect success vs a navigation response.
 
-2. **Services Preview**
-   - Three-column layout showcasing main service categories
-   - Icons or graphics for each service type
-   - Brief descriptions with "Learn More" links
+---
 
-3. **Client Testimonials**
-   - Rotating testimonial carousel or grid layout
-   - Client names and company affiliations
-   - Professional styling with quotation marks
+## 4. Form Focus Style Bug
 
-4. **Trust Indicators**
-   - "Clients I've Worked With" section
-   - Company logos or names (if available)
+**Problem:** When clicking into a form field, the background goes white and text becomes unreadable.
 
-### Service Pages Layout
-- **Service Category Headers**: Clear section divisions
-- **Detailed Descriptions**: Expanded content for each service type
-- **Benefits Lists**: Bullet points highlighting key advantages
-- **CTA Integration**: Strategic placement of consultation booking
+**Root cause:** The CSS for `.form-input:focus` likely sets `background-color: var(--color-white)` or `background-color: #fff`, which combined with white text or a white field background makes text invisible.
 
-### Pricing Page Layout
-- **Package Cards**: Three-column responsive card layout
-- **Feature Comparison**: Clear feature lists for each package
-- **Pricing Display**: Prominent pricing with currency (€)
-- **Custom Option**: Call-to-action for 30+ hour requirements
-
-### Contact Page Layout
-- **Contact Form**: Clean, accessible form design
-- **Contact Methods**: Multiple ways to reach Anna
-- **Location Information**: Cork, Ireland display
-- **Response Expectations**: Clear communication about response times
-
-## Data Models
-
-### Contact Form Data Structure
-```javascript
-{
-  firstName: string,
-  lastName: string,
-  email: string (validated),
-  phoneNumber: string (optional),
-  message: string,
-  timestamp: Date,
-  source: "website_contact_form"
+**Fix:** Audit `.form-input`, `.form-input:focus` CSS rules. Ensure focus state only adds an outline/ring — never changes background to white. The correct focus style:
+```css
+.form-input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 0;
+    border-color: var(--color-primary);
+    /* NO background-color change */
 }
 ```
 
-### Testimonial Data Structure
-```javascript
-{
-  id: string,
-  clientName: string,
-  company: string,
-  testimonial: string,
-  displayOrder: number
+---
+
+## 5. Rate Limit Feedback Visibility
+
+**Problem:** `showFeedback()` sets `el.style.display = 'block'` but the `.form-feedback` CSS class has `opacity: 0` and `transform: translateY(-10px)` as base styles, so even when display:block is set, the element is invisible.
+
+**Fix:** Update `showFeedback()` to also add the `form-feedback--show` class which sets `opacity: 1; transform: translateY(0)`. Or simplify: remove the opacity/transform animation from `.form-feedback` base styles and just use `display: none/block`.
+
+Simplest fix — update `showFeedback()`:
+```js
+function showFeedback(el, message, type) {
+  if (!el) return;
+  el.className = `form-feedback ${type}`;
+  el.textContent = message;
+  el.style.display = 'block';
+  el.style.opacity = '1';
+  el.style.transform = 'none';
 }
 ```
 
-### Service Data Structure
-```javascript
+---
+
+## 6. ARIA Role Fixes (all HTML pages)
+
+**Problem:** Nav `<ul>` has `role="menubar"`/`role="menu"`, `<li>` has `role="none"`, `<a>` has `role="menuitem"`. These ARIA widget roles are incorrect for navigation lists and confuse screen readers.
+
+**Fix:** Remove `role="menubar"`, `role="menu"`, `role="menuitem"` from all nav elements across all 5 HTML pages and `components/header.html`. The `<nav>` landmark is sufficient. Keep `role="none"` on `<li>` elements only if needed for list semantics, but remove it too for cleanliness.
+
+Before:
+```html
+<ul class="nav-list" role="menubar">
+  <li role="none"><a href="..." role="menuitem">Home</a></li>
+```
+After:
+```html
+<ul class="nav-list">
+  <li><a href="...">Home</a></li>
+```
+
+---
+
+## 7. Heading Hierarchy
+
+**contact.html:** The `h1 "Contact"` is outside the container div, then inside we have `h2 "Send me a message"`, `h2 "I'm here to help!"`, `h2 "Ready to get started?"`. This is structurally fine but "I'm here to help!" is a weak heading. Rename it to something more descriptive like "Get in touch" or keep as-is — the real fix is ensuring no h3 appears before h2.
+
+**about.html:** `<h1 class="page-title">About Anna</h1>` is outside the `<section aria-labelledby="about-hero-heading">` while `<h2 id="about-hero-heading">Hi I'm Anna!</h2>` is inside. The section's `aria-labelledby` points to the h2 which is fine. No structural fix needed here — the h1 is the page title, h2s are section headings. This is correct.
+
+**index.html:** Services preview section has `<h3>` cards but no `<h2>` section heading — this is a skip from h1 to h3. Add a visually hidden or visible `<h2>` for the services section, or change the card headings to `<h2>` since there's no parent h2.
+
+Fix: Add `<h2 class="sr-only">Services</h2>` before the services grid on index.html, or change service card `<h3>` to `<h2>` since they're top-level section content.
+
+---
+
+## 8. Contrast Fix
+
+**Problem:** `--color-gray-500: #6b7280` on white background = 4.48:1 contrast ratio, just below the 4.5:1 AA threshold for normal text.
+
+**Fix:** Change `--color-gray-500` to `#6b7280` → use `#595f6b` (approx 5.1:1) for any body text. Or simply ensure `.text-gray-500` and similar muted text classes use `--color-gray-600: #4b5563` (7.0:1) instead.
+
+Audit: The `service-description`, `hero-subtitle`, footer text use `--color-gray-700` (#374151) which is 10.7:1 — fine. The issue is likely `.text-gray-500` utility class used in contact.html (`text-gray-700 mb-8` paragraph). Check and fix any instance of gray-500 on white.
+
+---
+
+## 9. robots.txt Fix
+
+**Problem:** Current file has a blank line at the top before `User-agent`. Some validators flag this.
+
+**Fix:** Remove the leading blank line. File should start with `User-agent:` on line 1, no blank lines before directives.
+
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://www.vabyanna.com/sitemap.xml
+```
+
+No trailing whitespace on any line.
+
+---
+
+## 10. SEO — LocalBusiness Schema + Meta Tags
+
+**LocalBusiness JSON-LD** (add to `index.html` `<head>`):
+```json
 {
-  category: string,
-  title: string,
-  description: string,
-  features: string[],
-  icon: string
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "VA by Anna",
+  "url": "https://www.vabyanna.com",
+  "description": "Professional virtual assistant services in Cork, Ireland. Financial administration, administrative support, and marketing management.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cork",
+    "addressCountry": "IE"
+  },
+  "priceRange": "€€",
+  "serviceArea": "Ireland"
 }
 ```
 
-## Error Handling
+**Meta tag keyword updates:**
+- `index.html` title: "VA by Anna — Virtual Assistant Services in Cork, Ireland"
+- `index.html` description: add "virtual assistant ireland" and "va ireland"
+- `services.html` title: "Virtual Assistant Services Ireland | VA by Anna"
+- `about.html` title: "About Anna — Virtual Assistant Cork, Ireland | VA by Anna"
+- `pricing.html` title: "Virtual Assistant Pricing Ireland | VA by Anna"
+- `contact.html` title: "Contact a Virtual Assistant in Cork, Ireland | VA by Anna"
 
-### Form Validation
-- **Client-side**: Real-time validation for email format, required fields
-- **Server-side**: Cloudflare Pages Function validation and sanitization
-- **Error Messages**: Clear, user-friendly error messaging
-- **Success States**: Confirmation messages and visual feedback
+---
 
-### Fallback Strategies
-- **JavaScript Disabled**: Forms still functional with basic HTML
-- **Network Issues**: Graceful degradation with retry mechanisms
-- **Image Loading**: Alt text and placeholder handling
-- **External Service Failures**: Backup contact methods displayed
+## 11. Security Headers (_headers)
 
-### Accessibility Considerations
-- **WCAG 2.1 AA Compliance**: Proper heading hierarchy, alt text, color contrast
-- **Keyboard Navigation**: Full keyboard accessibility
-- **Screen Reader Support**: ARIA labels and semantic HTML
-- **Focus Management**: Visible focus indicators
+Add to `public/_headers` for all HTML routes (`/*.html` and `/`):
 
-## Testing Strategy
+```
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-src https://calendly.com; frame-ancestors 'none'
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Cross-Origin-Opener-Policy: same-origin
+```
 
-### Cross-browser Testing
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest 2 versions)
-- **Mobile Browsers**: iOS Safari, Chrome Mobile, Samsung Internet
-- **Feature Detection**: Progressive enhancement approach
+Note: `unsafe-inline` is needed for the `onload` preload pattern and any inline scripts. Trusted-Types is omitted as it would break the inline `onload` attribute used for CSS preloading and the `onerror` image fallbacks.
 
-### Performance Testing
-- **Page Load Speed**: Target under 3 seconds on 3G
-- **Core Web Vitals**: Optimize for LCP, FID, CLS metrics
-- **Image Optimization**: WebP format with fallbacks
-- **CSS/JS Minification**: Production build optimization
+Remove `X-Frame-Options: SAMEORIGIN` (superseded by CSP `frame-ancestors 'none'`).
 
-### Form Testing
-- **Cloudflare Pages Function Integration**: End-to-end form submission testing
-- **Email Delivery**: Verification of form-to-email functionality
-- **Spam Protection**: Basic validation and rate limiting
-- **Error Scenarios**: Network failures, invalid inputs
+---
 
-### Responsive Testing
-- **Breakpoints**: Mobile (320px+), Tablet (768px+), Desktop (1024px+)
-- **Touch Interactions**: Mobile-friendly button sizes and spacing
-- **Orientation Changes**: Portrait and landscape support
+## 12. Image Optimisation
 
-## Design System
+**Hero images** (`anna-at-desk.jpeg`, `anna-outdoor-professional.jpeg`): Add explicit `width` and `height` attributes to prevent CLS. These are used in `.hero-img` which is styled to fill its container, so use the natural aspect ratio dimensions.
 
-### Color Palette
-- **Primary**: Professional blue (#2563eb) for trust and reliability
-- **Secondary**: Warm accent color (#f59e0b) for CTAs and highlights
-- **Neutral**: Grays (#f8fafc, #64748b, #1e293b) for text and backgrounds
-- **Success**: Green (#10b981) for form confirmations
-- **Error**: Red (#ef4444) for validation messages
+Add `fetchpriority="high"` to the LCP hero image on each page.
 
-### Typography
-- **Headings**: Modern sans-serif (Inter or system fonts)
-- **Body Text**: Readable sans-serif with good line height (1.6)
-- **Font Sizes**: Responsive scale using clamp() for fluid typography
-- **Font Weights**: Regular (400), Medium (500), Semibold (600)
+Client logos: already have `loading="lazy"` — good. Add `width` and `height` attributes.
 
-### Spacing System
-- **Base Unit**: 8px grid system
-- **Component Spacing**: Consistent margins and padding
-- **Section Spacing**: Generous white space between major sections
-- **Mobile Adjustments**: Reduced spacing for smaller screens
+---
 
-### Interactive Elements
-- **Buttons**: Rounded corners, hover states, focus indicators
-- **Links**: Underline on hover, color changes
-- **Forms**: Clean input styling with focus states
-- **Cards**: Subtle shadows and hover effects
+## 13. JS Cleanup
 
-## Implementation Notes
+Remove from `main.js`:
+- The `showFeedback` call with empty string `showFeedback(feedback, '', 'info')` before the fetch (this clears the feedback area unnecessarily and shows a blue info box briefly)
+- The unused `RL_KEY`, `RL_MAX`, `RL_WINDOW` constants can stay (they're used)
+- No other dead code found — the JS is already lean
 
-### Cloudflare Pages Configuration
-- **Build Settings**: Static site, no build command required
-- **Custom Domain**: vabyanna.com with SSL certificate
-- **Redirects**: Handle www to non-www redirects
-- **Headers**: Security headers and caching policies
-
-### Cloudflare Pages Function Integration
-- **Form Endpoint**: POST /api/contact
-- **Email Service**: Integration with email service (Resend, SendGrid, or similar)
-- **Rate Limiting**: Prevent spam submissions
-- **CORS Configuration**: Proper cross-origin handling
-
-### SEO Optimization
-- **Meta Tags**: Title, description, Open Graph tags
-- **Structured Data**: LocalBusiness schema markup
-- **Sitemap**: XML sitemap generation
-- **Robots.txt**: Search engine crawling guidelines
+The main fix is the `e.preventDefault()` move and the `showFeedback` visibility fix.
