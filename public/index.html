@@ -18,7 +18,6 @@
     <meta name="twitter:title" content="VA by Anna — Virtual Assistant Services in Cork, Ireland">
     <meta name="twitter:description" content="VA by Anna — professional virtual assistant services in Cork, Ireland. Helping Irish business owners with financial administration, admin duties, and marketing. VA Ireland.">
     <meta name="twitter:image" content="https://www.vabyanna.com/assets/images/vabyanna-logo.png">
-    <link rel="preconnect" href="https://calendly.com">
     <link rel="dns-prefetch" href="https://www.linkedin.com">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="manifest" href="/manifest.json">
@@ -112,11 +111,11 @@
                 </div>
                 <div class="hero-image">
                     <picture>
-                        <source srcset="assets/images/anna-at-desk.webp" sizes="(min-width: 768px) 507px, 380px" type="image/webp">
+                        <source srcset="assets/images/anna-at-desk-380w.webp 380w, assets/images/anna-at-desk.webp 600w" sizes="(min-width: 768px) 507px, 380px" type="image/webp">
                         <img src="assets/images/anna-at-desk.jpeg"
-                            onerror="this.src='assets/images/anna-professional-placeholder.svg'"
+                            data-fallback="assets/images/anna-professional-placeholder.svg"
                             alt="Anna working at her desk with laptop in a professional office setting" class="hero-img"
-                            width="600" height="800" loading="eager" fetchpriority="high">
+                            width="360" height="480" loading="eager" fetchpriority="high">
                     </picture>
                 </div>
             </div>
@@ -152,14 +151,14 @@
                 <h2 class="section-title" id="clients-heading">Clients I've Worked With</h2>
                 <div class="clients-grid" role="list" aria-label="Client company logos">
                     <img role="listitem" src="assets/images/dolphin-rfc-logo.jpg"
-                        onerror="this.src='assets/images/dolphin-rfc-placeholder.svg'" alt="Dolphin RFC logo"
+                        data-fallback="assets/images/dolphin-rfc-placeholder.svg" alt="Dolphin RFC logo"
                         class="client-logo" width="160" height="80" loading="lazy">
-                    <img role="listitem" src="assets/images/tricare-logo.jpg" onerror="this.src='assets/images/tricare-placeholder.svg'"
+                    <img role="listitem" src="assets/images/tricare-logo.jpg" data-fallback="assets/images/tricare-placeholder.svg"
                         alt="TriCare logo" class="client-logo" width="160" height="80" loading="lazy">
-                    <img role="listitem" src="assets/images/hewitt-logo.jpg" onerror="this.src='assets/images/hewitt-placeholder.svg'"
+                    <img role="listitem" src="assets/images/hewitt-logo.jpg" data-fallback="assets/images/hewitt-placeholder.svg"
                         alt="Hewitt logo" class="client-logo" width="160" height="80" loading="lazy">
                     <img role="listitem" src="assets/images/st-georges-logo.jpg"
-                        onerror="this.src='assets/images/st-georges-placeholder.svg'"
+                        data-fallback="assets/images/st-georges-placeholder.svg"
                         alt="St George's International School logo" class="client-logo" width="160" height="80" loading="lazy">
                 </div>
             </div>

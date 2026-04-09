@@ -7,6 +7,7 @@ function init() {
   setActiveNav();
   initMobileNav();
   initContactForm();
+  initImageFallbacks();
 }
 
 // ---------------------------------------------------------------------------
@@ -241,5 +242,18 @@ function initContactForm() {
       showFeedback(feedback, 'Network error. Please check your connection and try again.', 'error');
       setLoading(submitBtn, false);
     }
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Image fallbacks (replaces CSP-blocked inline onerror handlers)
+// ---------------------------------------------------------------------------
+
+function initImageFallbacks() {
+  document.querySelectorAll('img[data-fallback]').forEach(img => {
+    img.addEventListener('error', function handler() {
+      this.src = this.dataset.fallback;
+      this.removeEventListener('error', handler);
+    });
   });
 }
