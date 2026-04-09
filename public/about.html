@@ -16,10 +16,9 @@
     <meta name="twitter:title" content="About Anna - VA by Anna">
     <meta name="twitter:description" content="Learn about Anna's background and expertise as a virtual assistant. Professional experience since 2016 in hospitality, e-commerce, and financial administration.">
     <meta name="twitter:image" content="https://www.vabyanna.com/assets/images/vabyanna-logo.png">
-    <link rel="dns-prefetch" href="https://calendly.com">
+    <link rel="preconnect" href="https://calendly.com">
     <link rel="dns-prefetch" href="https://www.linkedin.com">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -85,11 +84,11 @@
                     </div>
                     <div class="hero-image">
                         <picture>
-                            <source srcset="assets/images/anna-outdoor-professional.webp" type="image/webp">
+                            <source srcset="assets/images/anna-outdoor-professional.webp" sizes="(min-width: 768px) 507px, 380px" type="image/webp">
                             <img src="assets/images/anna-outdoor-professional.jpeg"
                                  onerror="this.src='assets/images/anna-workspace-placeholder.svg'"
                                  alt="Anna standing outdoors with laptop, showcasing professional flexibility and remote work capabilities"
-                                 class="hero-img" width="1200" height="1600" loading="eager" fetchpriority="high" style="object-position: 35% center">
+                                 class="hero-img hero-img--outdoor" width="1200" height="1600" loading="eager" fetchpriority="high">
                         </picture>
                     </div>
                 </div>
@@ -188,6 +187,6 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 </html>

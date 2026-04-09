@@ -105,6 +105,10 @@ export async function onRequestPost({ request, env }) {
     `;
 
     // --- Send email via Resend ---
+    if (!env.RESEND_API_KEY) {
+      return errorResponse("Server configuration error", 500);
+    }
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {

@@ -18,10 +18,9 @@
     <meta name="twitter:title" content="Services - VA by Anna">
     <meta name="twitter:description" content="Comprehensive virtual assistant services by Anna. Financial administration, administrative duties, and marketing management to help your business grow.">
     <meta name="twitter:image" content="https://www.vabyanna.com/assets/images/vabyanna-logo.png">
-    <link rel="dns-prefetch" href="https://calendly.com">
+    <link rel="preconnect" href="https://calendly.com">
     <link rel="dns-prefetch" href="https://www.linkedin.com">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -93,7 +92,7 @@
                 </div>
                 <div class="hero-image">
                     <picture>
-                        <source srcset="assets/images/anna-at-desk.webp" type="image/webp">
+                        <source srcset="assets/images/anna-at-desk.webp" sizes="(min-width: 768px) 507px, 380px" type="image/webp">
                         <img src="assets/images/anna-at-desk.jpeg"
                             onerror="this.src='assets/images/anna-professional-placeholder.svg'"
                             alt="Anna working professionally at her desk with laptop" class="hero-img"
@@ -246,7 +245,7 @@
         </div>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js" defer></script>
 </body>
 
 </html>
