@@ -23,8 +23,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/manifest.json">
-    <link rel="preload" href="assets/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="assets/css/main.css"></noscript>
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 
 <body data-page="services">
@@ -93,10 +92,13 @@
                     <a href="contact.html" class="cta-button cta-primary">Contact Anna</a>
                 </div>
                 <div class="hero-image">
-                    <img src="assets/images/anna-at-desk.jpeg"
-                        onerror="this.src='assets/images/anna-professional-placeholder.svg'"
-                        alt="Anna working professionally at her desk with laptop" class="hero-img"
-                        width="1536" height="2048" loading="eager" fetchpriority="high">
+                    <picture>
+                        <source srcset="assets/images/anna-at-desk.webp" type="image/webp">
+                        <img src="assets/images/anna-at-desk.jpeg"
+                            onerror="this.src='assets/images/anna-professional-placeholder.svg'"
+                            alt="Anna working professionally at her desk with laptop" class="hero-img"
+                            width="1200" height="1600" loading="eager" fetchpriority="high">
+                    </picture>
                 </div>
             </div>
         </section>
